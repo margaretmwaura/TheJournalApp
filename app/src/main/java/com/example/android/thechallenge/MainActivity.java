@@ -6,10 +6,14 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.AsyncTaskLoader;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemT
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private List<TheUser> usersJournal = new ArrayList<>();
+    private Context mContext;
 
     private int onCreateBoolean;
     @Override
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemT
         setContentView(R.layout.activity_main);
         onCreateBoolean = 0;
 
+        mContext = this;
         //        get the recyclerView
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
@@ -97,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemT
                         Boolean exist = userID.exists();
                         Log.d("Confirming", "This confirms that the datasnapshot exists " + exist);
                         Iterable<DataSnapshot> journals = userID.getChildren();
-                        for (DataSnapshot journal : journals) {
+                        for (DataSnapshot journal : journals)
+                        {
                             TheUser maggie = new TheUser();
                             maggie = journal.getValue(TheUser.class);
                             usersJournal.add(maggie);
@@ -106,6 +113,33 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemT
                         onCreateBoolean = 1;
                         Log.d("TheListRead", "This are the number of journals found " + usersJournal.size());
                         theJounalAdapter.setTasks(usersJournal);
+
+                        final AlertDialog.Builder dialog = new AlertDialog.Builder(mContext)
+                                .setTitle("Deleting an entry")
+                                .setMessage("Slide to the right to delete a journal entry");
+
+                        final AlertDialog alert = dialog.create();
+                        alert.show();
+
+// Hide after some seconds
+                        final Handler handler  = new Handler();
+                        final Runnable runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                if (alert.isShowing()) {
+                                    alert.dismiss();
+                                }
+                            }
+                        };
+
+                        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                handler.removeCallbacks(runnable);
+                            }
+                        });
+
+                        handler.postDelayed(runnable, 5000);
                     }
 
             });
@@ -128,6 +162,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemT
 //        This code is for deleting an item from the database
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerViewItemTouchHelper(0, ItemTouchHelper.LEFT  | ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+
+
 
 
 
