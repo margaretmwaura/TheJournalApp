@@ -41,15 +41,21 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemT
 
     public String Id;
 
-
+    private UserViewModel viewModel;
     private static TheUser result;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private List<TheUser> usersJournal = new ArrayList<>();
+
+    private int onCreateBoolean;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
+        Log.d("OnCreate","The onCreate method has been called ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        onCreateBoolean = 0;
 
         //        get the recyclerView
 
@@ -74,30 +80,38 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemT
 
 //        This is the data that is responsible for listening to data from firebase
 //        This is the code for reading data from the database
-        UserViewModel viewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         LiveData<DataSnapshot> livedata = viewModel.getDataSnapshotLiveData();
-        livedata.observe(this, new Observer<DataSnapshot>()
-        {
-            @Override
-            public void onChanged(@Nullable DataSnapshot dataSnapshot)
+
+
+            Log.d("OnCreate","This is the value of the boolean " + onCreateBoolean);
+            livedata.observe(this, new Observer<DataSnapshot>()
             {
 
-                DataSnapshot userID = dataSnapshot.child(Id);
+                    @Override
+                    public void onChanged (@Nullable DataSnapshot dataSnapshot)
+                    {
+                        Log.d("Livedata","This method has been called ");
+                        DataSnapshot userID = dataSnapshot.child(Id);
 
-                Boolean exist = userID.exists();
-                Log.d("Confirming","This confirms that the datasnapshot exists " + exist);
-                Iterable<DataSnapshot> journals = userID.getChildren();
-                for(DataSnapshot journal : journals)
-                {
-                    TheUser maggie = new TheUser();
-                    maggie = journal.getValue(TheUser.class);
-                    usersJournal.add(maggie);
-                }
+                        Boolean exist = userID.exists();
+                        Log.d("Confirming", "This confirms that the datasnapshot exists " + exist);
+                        Iterable<DataSnapshot> journals = userID.getChildren();
+                        for (DataSnapshot journal : journals) {
+                            TheUser maggie = new TheUser();
+                            maggie = journal.getValue(TheUser.class);
+                            usersJournal.add(maggie);
+                        }
 
-                Log.d("TheListRead","This are the number of journals found " + usersJournal.size());
-                theJounalAdapter.setTasks(usersJournal);
-            }
-        });
+                        onCreateBoolean = 1;
+                        Log.d("TheListRead", "This are the number of journals found " + usersJournal.size());
+                        theJounalAdapter.setTasks(usersJournal);
+                    }
+
+            });
+
+
+
 
 //This is for adding a new entry into the journal
 //        Hence adding a new entry into the databasse
@@ -106,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemT
             public void onClick(View view)
             {
                 // Create a new intent to start an AddTaskActivity
-                usersJournal.clear();
                 Intent addTaskIntent = new Intent(MainActivity.this, AddAThought.class).putExtra("theAccountId", Id);
                 startActivity(addTaskIntent);
             }
@@ -136,9 +149,55 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemT
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
-        Log.d("OnPause","This method has been called");
+        onCreateBoolean = 1;
+        if (viewModel != null && viewModel.getLiveData().hasObservers())
+        {
+            viewModel.getLiveData().removeObservers(this);
+        }
 
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        Log.d("OnResume","The onresume method has been called ");
+        if(onCreateBoolean == 1)
+        {
+            viewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+            LiveData<DataSnapshot> livedata = viewModel.getDataSnapshotLiveData();
+
+
+            Log.d("OnCreate","This is the value of the boolean " + onCreateBoolean);
+            livedata.observe(this, new Observer<DataSnapshot>()
+            {
+
+                @Override
+                public void onChanged (@Nullable DataSnapshot dataSnapshot)
+                {
+                    usersJournal.clear();
+                    Log.d("LivedataResume","This method has been called ");
+                    DataSnapshot userID = dataSnapshot.child(Id);
+
+                    Boolean exist = userID.exists();
+                    Log.d("Confirming", "This confirms that the datasnapshot exists " + exist);
+                    Iterable<DataSnapshot> journals = userID.getChildren();
+                    for (DataSnapshot journal : journals) {
+                        TheUser maggie = new TheUser();
+                        maggie = journal.getValue(TheUser.class);
+                        usersJournal.add(maggie);
+                    }
+                    onCreateBoolean = 1;
+                    Log.d("TheListRead", "This are the number of journals found " + usersJournal.size());
+                    theJounalAdapter.setTasks(usersJournal);
+                }
+
+            });
+
+        }
     }
 }
