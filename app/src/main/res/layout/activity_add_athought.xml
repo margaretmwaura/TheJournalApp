@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context="com.example.android.thechallenge.AddAThought">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+   >
+
+    <EditText
+        android:id="@+id/the_thoughts_title"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"/>
+
+    <EditText
+        android:id="@+id/the_thoughts_data"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"/>
+    <Button
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to the Journal"
+        android:textColor="#ffffff"
+        android:padding="16dp"
+        android:layout_gravity="center"
+        android:background="@color/colorAccent"/>
+
+
+
+</LinearLayout>
+
+<include layout="@layout/bottom_sheet" />
+
+</android.support.design.widget.CoordinatorLayout>

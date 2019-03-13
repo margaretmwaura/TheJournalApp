@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/the_journal_date"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="italic|bold"
+        android:padding="16dp"/>
+
+    <TextView
+        android:id="@+id/the_journal_title"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:padding="16dp"/>
+
+    <TextView
+        android:id="@+id/the_journal_thoughts"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"/>
+<!---->
+    <!--this view is meant to separate the list views-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dadada"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+</LinearLayout>

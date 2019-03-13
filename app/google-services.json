@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "344035394486",
+    "firebase_url": "https://challengejournal-d0e31.firebaseio.com",
+    "project_id": "challengejournal-d0e31",
+    "storage_bucket": "challengejournal-d0e31.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344035394486:android:2301d2602d7707f0",
+        "android_client_info": {
+          "package_name": "com.example.android.thechallenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344035394486-2e5osnmihuqit9p9u8v1lfqil4e9aqap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.thechallenge",
+            "certificate_hash": "2c766fd73f76a90a60d98c6fabf20e8e0020ed26"
+          }
+        },
+        {
+          "client_id": "344035394486-hbifobkjvuk2qrr5sdjb09t5a1m2lva0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD5eHz_BMSnA2vVz3mz7cC4vg4dYjb7sg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344035394486-hbifobkjvuk2qrr5sdjb09t5a1m2lva0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

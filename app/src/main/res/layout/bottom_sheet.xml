@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/colorAccent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    android:layout_height="200dp"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    android:id="@+id/bottom_sheet_layout"
+    >
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:id="@+id/label_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:text="Schedule a notification for the entry"/>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="40dp"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:text="Set up notification"
+            android:layout_width="150dp"
+            android:id="@+id/set_up_notification"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="No notification"
+            android:id="@+id/no_setting_up_notification"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>
