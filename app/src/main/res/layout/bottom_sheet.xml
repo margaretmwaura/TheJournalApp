@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:background="@color/colorAccent"
+    android:background="#fff"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,36 +8,51 @@
     android:layout_height="200dp"
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
+    android:minHeight="200dp"
     android:id="@+id/bottom_sheet_layout"
     >
 
-    <TextView
-        android:layout_marginTop="30dp"
-        android:id="@+id/label_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:text="Schedule a notification for the entry"/>
+
 
     <LinearLayout
 
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="40dp"
-        android:layout_centerInParent="true">
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        >
+
+
 
         <Button
-            android:text="Set up notification"
-            android:layout_width="150dp"
             android:id="@+id/set_up_notification"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="300dp"
+            android:height="50dp"
+            android:textAllCaps="false"
+            android:text="SetUp Notification"
+            android:textColor="#fff"
+            android:textSize="16dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/button"
+            android:onClick="openSign"/>
 
         <Button
-            android:text="No notification"
             android:id="@+id/no_setting_up_notification"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:width="300dp"
+            android:height="50dp"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:text="Do not setup notification"
+            android:textColor="#000"
+            android:layout_marginLeft="40dp"
+            android:onClick="openLogin"
+            android:background="@drawable/button_transparent"/>
     </LinearLayout>
 
 </RelativeLayout>

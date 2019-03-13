@@ -19,6 +19,8 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import static com.example.android.thechallenge.AddAThought.returnTime;
+
 public class UserFirebaseMessagingService extends FirebaseMessagingService
 {
 
@@ -44,51 +46,15 @@ public class UserFirebaseMessagingService extends FirebaseMessagingService
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         long now = SystemClock.elapsedRealtime();
-        long time = 60*1000;
-        long alarmtime = now + time;
+        int time = returnTime();
+        int timeNotification = time*360*10000;
+        long alarmtimeschedule = Long.valueOf(timeNotification);
+        long alarmtime = now + alarmtimeschedule;
 
         alarmManager.set(AlarmManager.ELAPSED_REALTIME,alarmtime,pendingIntent);
 
     }
 
-    public void sendNotification(Context context)
-    {
-        try {
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            // Create the pending intent to launch the activity
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, intent,
-                    PendingIntent.FLAG_ONE_SHOT);
-            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationManager notificationManager;
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, "default")
-                    .setSmallIcon(R.drawable.ic_all_out_black_24dp)
-                    .setContentTitle("Journal notification")
-                    .setContentText("It is time to act")
-                    .setAutoCancel(true)
-                    .setSound(defaultSoundUri)
-                    .setChannelId("default")
-                    .setContentIntent(pendingIntent);
-
-            notificationManager =
-                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                String channelId = "Your_channel_id";
-                NotificationChannel channel = new NotificationChannel(channelId, "Channel human readable", NotificationManager .IMPORTANCE_DEFAULT);
-                notificationManager.createNotificationChannel(channel);
-            }
-
-            notificationManager.notify(492/* ID of notification */, notificationBuilder.build());
-
-            Log.d("MessageReceived ", "The message has beed recieved ");
-        }
-        catch (Exception e)
-        {
-            Log.d("NotificationError","This is the reasin why the notification is not building " + e.getMessage());
-        }
-
-    }
 
 
 }
