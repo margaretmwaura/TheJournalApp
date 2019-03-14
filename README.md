@@ -1,5 +1,5 @@
 # The Journal app
-This is an app that can use to keep details of the activities they want to do in the future.
+This is an app that one can use to keep details of the activities they want to do in the future.
 The app allows the user to set a notification that will be sent to them at the given time.
 
 ## What I will learn
